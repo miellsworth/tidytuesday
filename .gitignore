@@ -1,0 +1,8 @@
+# Ignore Mac system files
+.DS_store
+
+# Default R files
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
