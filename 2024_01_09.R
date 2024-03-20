@@ -23,25 +23,46 @@ can_births <- tuesdata$canada_births_1991_2022
 nhl_births <- tuesdata$nhl_player_births
 
 # Transform data
-can_births %>% 
-  group_by(month) %>%
-  summarise(total_births = sum(births)) %>%
-  ggplot(aes(x = as.factor(month), y = total_births)) +
-  geom_col()
-
 can_monthly_births <- can_births %>% 
   group_by(month) %>%
   summarise(total_monthly_births = sum(births)) %>%
-  mutate(monthly_proportion = total_monthly_births/sum(total_monthly_births))
+  mutate(monthly_proportion = total_monthly_births/sum(total_monthly_births)) %>%
+  mutate(sample = "gen_pop")
 
 nhl_monthly_births <- nhl_births %>% count(birth_month) %>%
   mutate(monthly_proportion = n/sum(n)) %>%
   rename(
     total_monthly_births = n,
     month = birth_month
-  )
+  ) %>%
+  mutate(sample = "nhl")
+
+monthly_births <- rbind(can_monthly_births, nhl_monthly_births) %>%
+  mutate(month = as.factor(month))
+
+monthly_birth_diffs <- monthly_births %>% 
+  pivot_wider(
+    id_cols = c(month),
+    values_from = c(total_monthly_births, monthly_proportion),
+    names_from = sample
+  ) %>%
+  mutate(prop_diff = monthly_proportion_nhl - monthly_proportion_gen_pop) %>%
+  mutate(positive = if_else(prop_diff >= 0, TRUE, FALSE))
+monthly_birth_diffs
 
 # Plot data
+plot <- nhl_monthly_births %>%
+  ggplot(aes(x = month, y = monthly_proportion)) +
+  geom_col() +
+  geom_line(aes(x = month, y = monthly_proportion), data = can_monthly_births)
+
+plot
+
+plot2 <- monthly_birth_diffs %>%
+  ggplot(aes(x = month, y = prop_diff, fill = positive)) +
+  geom_col()
+
+plot2
 
 # Save draft
 ggsave(
