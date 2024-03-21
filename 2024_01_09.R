@@ -54,21 +54,30 @@ monthly_birth_diffs
 
 # Plot data
 plot <- monthly_birth_diffs %>%
-  ggplot(
-    aes(x = fct_inorder(month), y = monthly_proportion_gen_pop)) +
-  geom_col() +
-  geom_point() +
-  scale_y_continuous(labels = scales::percent) +
+  ggplot(aes(x = fct_inorder(month), y = monthly_proportion_gen_pop)) +
   geom_rect(
-    aes(x = month,
-        xmin = num_month - 0.45,
-        xmax = num_month + 0.45,
-        ymin = monthly_proportion_gen_pop,
-        ymax = monthly_proportion_gen_pop + prop_diff,
-        fill = positive
+    aes(
+      x = fct_inorder(month),
+      xmin = num_month - 0.45,
+      xmax = num_month + 0.45,
+      ymin = monthly_proportion_gen_pop,
+      ymax = monthly_proportion_gen_pop + prop_diff,
+      fill = positive
     )
   ) +
+  geom_col(
+    aes(
+      x = fct_inorder(month), 
+      y = monthly_proportion_gen_pop,
+      ),
+    color = "black",
+    size = 1,
+    alpha = 0.2
+  ) +
   scale_fill_manual(values = c("#FF6962", "#5BB300")) +
+  scale_y_continuous(
+    labels = scales::percent,
+    limits = c(0, NA)) +
   theme_classic() +
   theme(
     axis.ticks.x = element_blank(),
