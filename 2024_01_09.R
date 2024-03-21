@@ -6,6 +6,7 @@ library(tidytuesdayR)
 library(here)
 library(stringr)
 library(lubridate)
+library(forcats)
 
 # Find the most recent Tuesday
 tidytuesdayR::last_tuesday()
@@ -38,11 +39,12 @@ nhl_monthly_births <- nhl_births %>% count(birth_month) %>%
   mutate(sample = "nhl")
 
 monthly_births <- rbind(can_monthly_births, nhl_monthly_births) %>%
-  mutate(month = as.factor(month))
+  mutate(num_month = month) %>%
+  mutate(month = month.abb[month])
 
 monthly_birth_diffs <- monthly_births %>% 
   pivot_wider(
-    id_cols = c(month),
+    id_cols = c(month, num_month),
     values_from = c(total_monthly_births, monthly_proportion),
     names_from = sample
   ) %>%
@@ -51,16 +53,46 @@ monthly_birth_diffs <- monthly_births %>%
 monthly_birth_diffs
 
 # Plot data
-plot <- nhl_monthly_births %>%
-  ggplot(aes(x = month, y = monthly_proportion)) +
+plot <- monthly_birth_diffs %>%
+  ggplot(
+    aes(x = fct_inorder(month), y = monthly_proportion_gen_pop)) +
   geom_col() +
-  geom_line(aes(x = month, y = monthly_proportion), data = can_monthly_births)
+  geom_point() +
+  scale_y_continuous(labels = scales::percent) +
+  geom_rect(
+    aes(x = month,
+        xmin = num_month - 0.45,
+        xmax = num_month + 0.45,
+        ymin = monthly_proportion_gen_pop,
+        ymax = monthly_proportion_gen_pop + prop_diff,
+        fill = positive
+    )
+  ) +
+  scale_fill_manual(values = c("#FF6962", "#5BB300")) +
+  theme_classic() +
+  theme(
+    axis.ticks.x = element_blank(),
+    axis.ticks.y = element_blank(),
+    text = element_text(size = 13),
+    legend.position = "none"
+  )
 
 plot
 
 plot2 <- monthly_birth_diffs %>%
-  ggplot(aes(x = month, y = prop_diff, fill = positive)) +
-  geom_col()
+  ggplot(aes(x = fct_inorder(month), y = prop_diff, fill = positive)) +
+  geom_col() +
+  scale_fill_manual(values = c("#FF6962", "#5BB300")) +
+  scale_y_continuous(labels = scales::percent) +
+  ylab("Relative proportion of NHL player births by month") +
+  xlab("") +
+  theme_classic() +
+  theme(
+    axis.ticks.x = element_blank(),
+    axis.ticks.y = element_blank(),
+    text = element_text(size = 13),
+    legend.position = "none"
+  )
 
 plot2
 
