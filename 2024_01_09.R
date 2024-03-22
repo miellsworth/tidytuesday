@@ -4,8 +4,6 @@ library(ggplot2)
 library(tidyr)
 library(tidytuesdayR)
 library(here)
-library(stringr)
-library(lubridate)
 library(forcats)
 
 # Find the most recent Tuesday
@@ -74,16 +72,27 @@ plot <- monthly_birth_diffs %>%
     size = 1,
     alpha = 0.2
   ) +
-  scale_fill_manual(values = c("#FF6962", "#5BB300")) +
+  scale_fill_manual(
+    values = c("#FF6962", "#5BB300"),
+    labels = c("Lower", "Higher"),
+    name = "Relative Proportion of NHL birth months"
+  ) +
   scale_y_continuous(
     labels = scales::percent,
-    limits = c(0, NA)) +
+    limits = c(0, NA),
+    expand = c(0, 0)
+  ) +
+  ylab("Proportion of births per month (%)") +
+  xlab(element_blank()) +
+  labs(
+    title = "NHL players are typically born in the first 5 months of the year",
+    subtitle = "relative to the general population") +
   theme_classic() +
   theme(
     axis.ticks.x = element_blank(),
     axis.ticks.y = element_blank(),
     text = element_text(size = 13),
-    legend.position = "none"
+    legend.position = "bottom"
   )
 
 plot
@@ -91,16 +100,24 @@ plot
 plot2 <- monthly_birth_diffs %>%
   ggplot(aes(x = fct_inorder(month), y = prop_diff, fill = positive)) +
   geom_col() +
-  scale_fill_manual(values = c("#FF6962", "#5BB300")) +
-  scale_y_continuous(labels = scales::percent) +
-  ylab("Relative proportion of NHL player births by month") +
-  xlab("") +
+  scale_fill_manual(
+    values = c("#FF6962", "#5BB300"),
+    labels = c("Lower", "Higher"),
+    name = "Relative proportion of NHL birth months"
+  ) +
+  scale_y_continuous(
+    labels = scales::percent,
+    expand = c(0, 0)
+  ) +
+  ylab("Difference in proportion (%) (NHL - General Population)") +
+  xlab(element_blank()) +
+  labs(title = "Proportion of NHL player births by month, relative to the general population") +
   theme_classic() +
   theme(
     axis.ticks.x = element_blank(),
     axis.ticks.y = element_blank(),
     text = element_text(size = 13),
-    legend.position = "none"
+    legend.position = "bottom"
   )
 
 plot2
