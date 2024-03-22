@@ -85,8 +85,8 @@ plot <- monthly_birth_diffs %>%
   ylab("Proportion of births per month (%)") +
   xlab(element_blank()) +
   labs(
-    title = "NHL players are typically born in the first 5 months of the year",
-    subtitle = "relative to the general population") +
+    title = "NHL players are typically born in the first 5 months of the year,",
+    subtitle = "relative to the general population.") +
   theme_classic() +
   theme(
     axis.ticks.x = element_blank(),
@@ -111,7 +111,7 @@ plot2 <- monthly_birth_diffs %>%
   ) +
   ylab("Difference in proportion (%) (NHL - General Population)") +
   xlab(element_blank()) +
-  labs(title = "Proportion of NHL player births by month, relative to the general population") +
+  labs(title = "Proportion of NHL player births by month, relative to the general population.") +
   theme_classic() +
   theme(
     axis.ticks.x = element_blank(),
@@ -123,14 +123,20 @@ plot2 <- monthly_birth_diffs %>%
 plot2
 
 # Save draft
-ggsave(
-  here("plots", "drafts", paste0("plt_", last_tues), paste0(format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".png")),
-  plot
-)
+# ggsave(
+#   here("plots", "drafts", paste0("plt_", last_tues), paste0(format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".png")),
+#   plot
+# )
 
 # Save final
-plot_title <- ""
+plot_title <- "proportion_comparison"
 ggsave(
   here("plots", paste0(last_tues, "_", plot_title, ".png")), 
   plot
+)
+
+plot_title <- "proportion_diff_comparison"
+ggsave(
+  here("plots", paste0(last_tues, "_", plot_title, ".png")), 
+  plot2
 )
