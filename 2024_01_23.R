@@ -13,7 +13,7 @@ last_tues <- "2024-01-23"
 
 # Creating directory for draft plots
 plt_dir <- paste0("plt_", last_tues)
-dir.create(here("plots", "drafts", plt_dir))
+# dir.create(here("plots", "drafts", plt_dir))
 
 # Get the Data
 tuesdata <- tidytuesdayR::tt_load(last_tues)
