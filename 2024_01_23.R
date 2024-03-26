@@ -13,7 +13,7 @@ last_tues <- "2024-01-23"
 
 # Creating directory for draft plots
 plt_dir <- paste0("plt_", last_tues)
-# dir.create(here("plots", "drafts", plt_dir))
+dir.create(here("plots", "drafts", plt_dir))
 
 # Get the Data
 tuesdata <- tidytuesdayR::tt_load(last_tues)
@@ -25,7 +25,7 @@ df <- tuesdata$english_education
 glimpse(df)
 
 # Plot data
-df %>%
+plot <- df %>%
   filter(size_flag %in% c("Small Towns", "Medium Towns", "Large Towns")) %>%
   ggplot(aes(x = size_flag, y = education_score)) +
   geom_violin(
@@ -42,8 +42,11 @@ df %>%
   ) +
   stat_summary(fun.y = mean, geom = "crossbar", width = 0.8, size = 0.4) +
   theme_classic() + 
-  xlab("") +
-  ylab("Educational attainment index score") +
+  labs(
+    title = "Educational attainment of young people in English towns",
+    x = "",
+    y = "Educational attainment index score"
+  ) +
   theme(
     legend.position = "none",
     axis.ticks.x = element_blank(),
@@ -53,13 +56,13 @@ df %>%
   coord_flip()
 
 # Save draft
-ggsave(
-  here("plots", "drafts", paste0("plt_", last_tues), paste0(format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".png")),
-  plot
-)
+# ggsave(
+#   here("plots", "drafts", paste0("plt_", last_tues), paste0(format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".png")),
+#   plot
+# )
 
 # Save final
-plot_title <- ""
+plot_title <- "edu_attainment_violin"
 ggsave(
   here("plots", paste0(last_tues, "_", plot_title, ".png")), 
   plot
