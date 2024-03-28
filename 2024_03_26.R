@@ -29,7 +29,13 @@ glimpse(results)
 glimpse(picks)
 
 # Plot data
-
+picks %>%
+  mutate(finals = as.numeric(sub("%", "", finals))/100) %>%
+  arrange(desc(finals)) %>%
+  head(n = 10) %>%
+  ggplot(aes(x = reorder(team, -finals), y = finals)) +
+  geom_col() +
+  scale_y_continuous(labels = scales::percent_format())
 
 # Save draft
 # ggsave(
