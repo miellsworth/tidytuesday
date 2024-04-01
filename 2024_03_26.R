@@ -33,9 +33,28 @@ picks %>%
   mutate(finals = as.numeric(sub("%", "", finals))/100) %>%
   arrange(desc(finals)) %>%
   head(n = 10) %>%
-  ggplot(aes(x = reorder(team, -finals), y = finals)) +
+  ggplot(aes(x = reorder(team, finals), y = finals)) +
   geom_col() +
-  scale_y_continuous(labels = scales::percent_format())
+  geom_text(
+    aes(label = paste0(as.character(round(finals * 100, 0)), '%')), 
+    hjust = 1.1,
+    color = "white"
+  ) +
+  scale_y_continuous(
+    labels = scales::percent_format(),
+    expand = c(0, 0)
+  ) +
+  labs(
+    title = "Connecticut is by far the most picked team to make the NCAA tournament finals",
+    y = "Proportion of finals picks (%)",
+    x = ""
+  ) +
+  theme_classic() +
+  theme(
+    axis.line.y = element_blank(),
+    axis.ticks.y = element_blank()
+  ) +
+  coord_flip()
 
 # Save draft
 # ggsave(
