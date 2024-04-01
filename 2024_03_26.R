@@ -29,7 +29,7 @@ glimpse(results)
 glimpse(picks)
 
 # Plot data
-picks %>%
+plot <- picks %>%
   mutate(finals = as.numeric(sub("%", "", finals))/100) %>%
   arrange(desc(finals)) %>%
   head(n = 10) %>%
@@ -46,7 +46,7 @@ picks %>%
   ) +
   labs(
     title = "Connecticut is by far the most picked team to make the NCAA tournament finals",
-    y = "Proportion of finals picks (%)",
+    y = "Proportion of picks that have a team making the finals (%)",
     x = ""
   ) +
   theme_classic() +
@@ -55,6 +55,7 @@ picks %>%
     axis.ticks.y = element_blank()
   ) +
   coord_flip()
+plot
 
 # Save draft
 # ggsave(
@@ -63,7 +64,7 @@ picks %>%
 # )
 
 # Save final
-plot_title <- ""
+plot_title <- "top_10_finals_picks"
 ggsave(
   here("plots", paste0(last_tues, "_", plot_title, ".png")), 
   plot
