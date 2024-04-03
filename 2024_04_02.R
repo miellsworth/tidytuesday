@@ -1,11 +1,11 @@
 # Load libraries
 library(dplyr)
 library(ggplot2)
-library(ggrepel)
 library(tidyr)
 library(tidytuesdayR)
 library(here)
 library(janitor)
+library(stringr)
 
 # Find the most recent Tuesday
 tidytuesdayR::last_tuesday()
@@ -70,9 +70,13 @@ plot <- df %>%
     values = c("#DF2948", "#FDB01B", "#767EA2", "#817369", "#ECC4B4", "#B6957C")
   ) +  
   coord_polar("y", start = 90) +
+  labs(
+    title = stringr::str_wrap("Teaching is the primary occupation of Atlanta University graduates who are descedants of former slaves.", width = 60)
+  ) +
   theme_void() +
   theme(
-    legend.position = "left",
+    legend.position = "right",
+    plot.title = element_text(hjust = 0.5),
     legend.title = element_blank(),
     plot.background = element_rect(fill = "#E6D3C4", color = "#E6D3C4")
   ) +
