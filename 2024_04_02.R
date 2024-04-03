@@ -74,7 +74,7 @@ plot <- df %>%
   theme(
     legend.position = "left",
     legend.title = element_blank(),
-    plot.background = element_rect(fill = "#E6D3C4")
+    plot.background = element_rect(fill = "#E6D3C4", color = "#E6D3C4")
   ) +
   annotate(
     "text", 
