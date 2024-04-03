@@ -45,19 +45,23 @@ df3 <- data.frame(
   value = as.numeric(c(NA, NA, NA, NA, NA, NA)))
 
 # Plot data
-df %>% 
+plot <- df %>% 
   ggplot() +
   geom_bar(
     data = df, 
     aes(x = "", y = Percentage, fill = reorder(Occupation, -Percentage)),
     stat = "identity", 
     width = 1, 
-    show.legend = FALSE
+    show.legend = FALSE,
+    color = "black",
+    size = 0.2
   ) +
   geom_point(
     data = df3, 
-    aes(x = person, y = value, color = variable), 
-    size = 8
+    aes(x = person, y = value, fill = variable), 
+    size = 8,
+    shape = 21,
+    color = "black"
   ) +
   scale_fill_manual(
     values = c("#DF2948", "#FDB01B", "#767EA2", "#817369", "#ECC4B4", "#B6957C")
@@ -69,7 +73,22 @@ df %>%
   theme_void() +
   theme(
     legend.position = "left",
-    legend.title = element_blank()
+    legend.title = element_blank(),
+    plot.background = element_rect(fill = "#E6D3C4")
   ) +
-  annotate("text", x = 1.5, y = df$pos, label = paste0(df$Percentage, "%"), size = 5)
-           
+  annotate(
+    "text", 
+    x = c(0.9, 1, 1.4, 1.4, 1.4, 1.4), 
+    y = df$pos, 
+    label = paste0(df$Percentage, "%"), 
+    size = 4, 
+    fontface = 2
+  )
+plot
+
+# Save final
+plot_title <- "plate_37"
+ggsave(
+  here("plots", paste0(last_tues, "_", plot_title, ".png")), 
+  plot
+)
