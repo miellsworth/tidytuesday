@@ -5,7 +5,6 @@ library(tidyr)
 library(ggplot2)
 library(here)
 
-
 # Find the most recent Tuesday
 tidytuesdayR::last_tuesday()
 last_tues <- "2024-03-12"
@@ -35,16 +34,18 @@ df_buckets <- df %>%
       labels = c("Up to 5 projects", "6-19 projects", "20-49 projects", "50-99 projects", "100-199 projects", "200+ projects"),
       right = FALSE
     )
-  ) %>% 
+  )
+
+df_buckets_summary <- df_buckets %>% 
   group_by(bucket) %>%
   summarise(
     count = n(),
     bucket_proportion = n() / nrow(df)
   )
-df_buckets
+df_buckets_summary
 
 # Plot data
-plot <- df_buckets %>%
+plot <- df_buckets_summary %>%
   ggplot(aes(y = reorder(bucket, count), x = count)) +
   geom_col() +
   geom_text(
@@ -53,6 +54,7 @@ plot <- df_buckets %>%
     colour = "white", 
     fontface = "bold"
   ) +
+  scale_x_continuous(expand = c(0, 0)) +
   labs(
     title = "",
     subtitle = "",
@@ -60,26 +62,16 @@ plot <- df_buckets %>%
     x = "",
     y = ""
   ) +
-  theme_bw() +
+  theme_classic() +
   theme(
-    plot.margin = margin(10, 10, 10, 10),
-    panel.grid.minor = element_blank(),
-    panel.grid.major = element_blank(),
-    plot.title = element_text(size = 28, margin = margin(b = 5)),
-    plot.subtitle = element_text(size = 12, margin = margin(b = 5)),
-    plot.caption = element_text(size = 8),
-    # axis.text.y = element_blank(),
-    axis.ticks.length = unit(3, "pt"),
-    axis.ticks.x.bottom = element_line(size = 0.5),
-    axis.text.x = element_text(size = 10, margin = margin(t = 2)),
-    axis.title.x = element_text(size = 12, margin = margin(t = 5)),
-    axis.line.x.bottom = element_line(colour = "black"),
+    axis.line.y = element_blank(),
+    axis.ticks.y = element_blank(),
     text = element_text(family = "Tahoma")
   )
 plot
 
 # Save draft
-ggsave(here("plots", "drafts", paste0("plt_", last_tues), paste0(format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".png")))
+# ggsave(here("plots", "drafts", paste0("plt_", last_tues), paste0(format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".png")))
 
 # Save final
 plot_title <- ""
