@@ -48,25 +48,27 @@ plot <- df_buckets %>%
   ggplot(aes(y = reorder(bucket, count), x = count)) +
   geom_col() +
   geom_text(
-    aes(y = reorder(bucket, count), x = count - 20, label = bucket), 
-    hjust = 0, 
+    aes(y = reorder(bucket, count), x = count, label = count), 
+    hjust = 1.1, 
     colour = "white", 
     fontface = "bold"
   ) +
   labs(
     title = "",
     subtitle = "",
-    caption = "Chart: @ellsworthh@data-folks.masto.host | Data: fiscalsponsordirectory.org"
+    caption = "Chart: @ellsworthh@data-folks.masto.host | Data: fiscalsponsordirectory.org",
+    x = "",
+    y = ""
   ) +
-  theme_void() +
+  theme_bw() +
   theme(
-    plot.margin = margin(10, 20, 5, 20),
+    plot.margin = margin(10, 10, 10, 10),
     panel.grid.minor = element_blank(),
     panel.grid.major = element_blank(),
     plot.title = element_text(size = 28, margin = margin(b = 5)),
     plot.subtitle = element_text(size = 12, margin = margin(b = 5)),
     plot.caption = element_text(size = 8),
-    axis.text.y = element_blank(),
+    # axis.text.y = element_blank(),
     axis.ticks.length = unit(3, "pt"),
     axis.ticks.x.bottom = element_line(size = 0.5),
     axis.text.x = element_text(size = 10, margin = margin(t = 2)),
