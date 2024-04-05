@@ -56,8 +56,8 @@ plot <- df_buckets_summary %>%
   ) +
   scale_x_continuous(expand = c(0, 0)) +
   labs(
-    title = "",
-    subtitle = "",
+    title = "Breakdown of directory sponsors by number of projects served",
+    subtitle = "Updated March 2024",
     caption = "Chart: @ellsworthh@data-folks.masto.host | Data: fiscalsponsordirectory.org",
     x = "",
     y = ""
@@ -66,6 +66,9 @@ plot <- df_buckets_summary %>%
   theme(
     axis.line.y = element_blank(),
     axis.ticks.y = element_blank(),
+    plot.title.position = "plot",
+    plot.title = element_text(hjust = 0.5),
+    plot.subtitle = element_text(hjust = 0.5),
     text = element_text(family = "Tahoma")
   )
 plot
@@ -74,7 +77,7 @@ plot
 # ggsave(here("plots", "drafts", paste0("plt_", last_tues), paste0(format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".png")))
 
 # Save final
-plot_title <- ""
+plot_title <- "num_sponsors"
 ggsave(
   here("plots", paste0(last_tues, "_", plot_title, ".png")), 
   plot
