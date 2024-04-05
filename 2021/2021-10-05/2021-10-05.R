@@ -54,4 +54,4 @@ ggplot(spdf) +
     plot.title = element_text(size= 22, hjust=0.5, color = "#4e4d47", margin = margin(b = -0.1, t = 0.4, l = 2, unit = "cm")),
   ) +
   # ggsave(here("plots", "drafts", "plt_2021_wk41", paste0(format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".png")))
-  ggsave(here("plots", "2022_wk41_median_salary.png"))
+  ggsave(here("2021", "2021-10-05", "2021-10-05_median_salary.png"))

@@ -45,14 +45,14 @@ plot <- scurvy_trans %>%
 plot
 
 # Save draft
-ggsave(
-  here("plots", "drafts", "plt_2023-07-25", paste0(format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".png")),
-  plot
-  )
+# ggsave(
+#   here("plots", "drafts", "plt_2023-07-25", paste0(format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".png")),
+#   plot
+#   )
 
 # Save final
 plot_title <- "scurvy_symptoms"
 ggsave(
-  here("plots", paste0(last_tues, "_", plot_title, ".png")), 
+  here("2023", "2023-07-25", paste0(last_tues, "_", plot_title, ".png")), 
   plot
   )

@@ -57,13 +57,13 @@ plot <- df %>%
 
 # Save draft
 # ggsave(
-#   here("plots", "drafts", paste0("plt_", last_tues), paste0(format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".png")),
+#   here("drafts", paste0("plt_", last_tues), paste0(format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".png")),
 #   plot
 # )
 
 # Save final
 plot_title <- "edu_attainment_violin"
 ggsave(
-  here("plots", paste0(last_tues, "_", plot_title, ".png")), 
+  here("2024", last_tues, paste0(last_tues, "_", plot_title, ".png")), 
   plot
 )

@@ -93,6 +93,6 @@ plot
 # Save final
 plot_title <- "plate_37"
 ggsave(
-  here("plots", paste0(last_tues, "_", plot_title, ".png")), 
+  here("2024", last_tues, paste0(last_tues, "_", plot_title, ".png")), 
   plot
 )

@@ -3,7 +3,7 @@ library(tidyverse)
 library(here)
 
 # Creating directory for draft plots
-dir.create(here("plots", "drafts", "plt_2021_wk13"))
+dir.create(here("drafts", "plt_2021_wk13"))
 
 # Load data
 unvotes <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-03-23/unvotes.csv')
@@ -63,5 +63,5 @@ g20 %>% ggplot() +
     text = element_text(family = "Tahoma")
   ) +
   # ggsave(here("plots", "drafts", "plt_2021_wk13", paste0(format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".png")))
-  ggsave(here("plots", "2021_wk13_unvotes.png"))
+  ggsave(here("2021", "2021-03-23", "2021-03-23_unvotes.png"))
 

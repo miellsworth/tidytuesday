@@ -10,7 +10,7 @@ library(ggrepel)
 tidytuesdayR::last_tuesday()
 
 # Creating directory for draft plots
-dir.create(here("plots", "drafts", "plt_2023_02_07"))
+# dir.create(here("plots", "drafts", "plt_2023_02_07"))
 
 # Get the Data
 tuesdata <- tidytuesdayR::tt_load('2023-02-07')
@@ -72,4 +72,4 @@ monthly_volume %>%
     panel.background = element_rect(fill = "#f5f5f2", color = NA), 
     legend.background = element_rect(fill = "#f5f5f2", color = NA)
   ) +
-  ggsave(here("plots", "2023_02_07_monthly_vol.png"))
+  ggsave(here("2023", "2023-02-07", "2023-02-07_monthly_vol.png"))

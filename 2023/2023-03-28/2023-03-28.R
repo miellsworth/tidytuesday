@@ -12,7 +12,7 @@ library(ggrepel)
 tidytuesdayR::last_tuesday()
 
 # Creating directory for draft plots
-dir.create(here("plots", "drafts", "plt_2023_03_28"))
+# dir.create(here("drafts", "plt_2023_03_28"))
 
 # Get the Data
 tuesdata <- tidytuesdayR::tt_load('2023-03-28')
