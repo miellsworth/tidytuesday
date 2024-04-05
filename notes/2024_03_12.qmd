@@ -86,11 +86,11 @@ font_import()
 loadfonts(device = "win")
 ```
 
-According to the blog post, I need to load ggplot2 again or else the font load won't work.
+According to the blog post, I need to load ggplot2 again or else the font load won't work. Hence why I'm running `library(ggplot2)` again here. Didn't test out if it's actually required.
 
 ```{r}
 library(ggplot2)
-df_buckets_summary %>%
+plot <- df_buckets_summary %>%
   ggplot(aes(y = reorder(bucket, count), x = count)) +
   geom_col() +
   geom_text(
@@ -113,4 +113,24 @@ df_buckets_summary %>%
     axis.ticks.y = element_blank(),
     text = element_text(family = "Tahoma")
   )
+plot
 ```
+
+Looks better. One thing that's annoying me is the alignment of the chart title. On the March 2023 post, it's aligned to the center of the plot, so I'll add `plot.title = element_text(hjust = 0.5)` to `theme()` to match that. Same for the subtitle. One other thing I learned here is that the alignment is based on the `panel` (AKA the space where the data is drawn). To change this so the alignment is based on the entire plot area, I'll add `plot.title.position = "plot"` to `theme()` as well.
+
+```{r}
+plot <- plot +
+  theme(
+    axis.line.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    plot.title.position = "plot",
+    plot.title = element_text(hjust = 0.5),
+    plot.subtitle = element_text(hjust = 0.5),
+    text = element_text(family = "Tahoma")
+  )
+plot
+```
+
+Okay. I think that's good. Much better than the pie chart! And to answer the original prompt, the data hasn't changed much here.
+
+![Original Pie Chart](https://fiscalsponsordirectory.org/wp-content/uploads/2023/03/PieFactsnStats23.png)
