@@ -2,6 +2,8 @@
 library(dplyr)
 library(ggplot2)
 library(ggmap)
+library(maps)
+library(mapproj)
 library(tidyr)
 library(tidytuesdayR)
 library(here)
@@ -47,4 +49,10 @@ total_2024_summary %>%
 states %>%
   ggplot(aes(x = long, y = lat)) +
   geom_polygon(aes(group = group)) +
-  coord_map("albers",  lat0 = 45.5, lat1 = 29.5)
+  geom_point(
+    aes(x = lon, y = lat, color = as.numeric(totality_duration)), 
+    data = total_2024,
+    alpha = 0.5
+  ) +
+  coord_map("albers",  lat0 = 45.5, lat1 = 29.5) +
+  theme_void()
