@@ -10,12 +10,17 @@ library(ggrepel)
 
 # Find the most recent Tuesday
 tidytuesdayR::last_tuesday()
+last_tues <- "2023-03-28"
+
+# View README
+tt_output <- tt_load_gh(last_tues)
+readme(tt_output)
 
 # Creating directory for draft plots
 # dir.create(here("drafts", "plt_2023_03_28"))
 
 # Get the Data
-tuesdata <- tidytuesdayR::tt_load('2023-03-28')
+tuesdata <- tidytuesdayR::tt_load(last_tues)
 
 transitions <- tuesdata$transitions
 timezones <- tuesdata$timezones
