@@ -1,5 +1,1 @@
-<h1 align="center">
-
-Shiny
-
-</h1>
+<h1 align="center"> Shiny </h1>
