@@ -6,6 +6,6 @@ United Nations Votes
 
 <p align="center">
 
-<img src="/2021/2021-03-23/2021-03-23_unvotes.png" width="60%"/>
+<img src="/2021/2021-03-23/2021-03-23_unvotes.png" width="80%"/>
 
 </p>
