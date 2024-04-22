@@ -5,10 +5,15 @@ library(tidyr)
 library(tidytuesdayR)
 library(here)
 library(forcats)
+library(cowplot)
 
 # Find the most recent Tuesday
 tidytuesdayR::last_tuesday()
 last_tues <- "2024-01-09"
+
+# View README
+tt_output <- tt_load_gh(last_tues)
+readme(tt_output)
 
 # Creating directory for draft plots
 plt_dir <- paste0("plt_", last_tues)
@@ -82,17 +87,17 @@ plot <- monthly_birth_diffs %>%
     limits = c(0, NA),
     expand = c(0, 0)
   ) +
-  ylab("Proportion of births per month (%)") +
+  ylab("Births per month") +
   xlab(element_blank()) +
   labs(
-    title = "NHL players are typically born in the first 5 months of the year,",
-    subtitle = "relative to the general population.") +
+    title = "NHL players are typically born in the first 5 months of the year"
+  ) +
   theme_classic() +
   theme(
     axis.ticks.x = element_blank(),
     axis.ticks.y = element_blank(),
     text = element_text(size = 13),
-    legend.position = "bottom"
+    legend.position = "none"
   )
 
 plot
@@ -103,15 +108,17 @@ plot2 <- monthly_birth_diffs %>%
   scale_fill_manual(
     values = c("#FF6962", "#5BB300"),
     labels = c("Lower", "Higher"),
-    name = "Relative proportion of NHL birth months"
+    name = "Relative birth month proportion - NHL players vs. Gen Pop"
   ) +
   scale_y_continuous(
     labels = scales::percent,
     expand = c(0, 0)
   ) +
-  ylab("Difference in proportion (%) (NHL - General Population)") +
+  labs(
+    caption = "Chart: @mb_ellsworth | Data: Statistics Canada, NHL"
+  ) +
+  ylab("NHL % - Gen Pop %") +
   xlab(element_blank()) +
-  labs(title = "Proportion of NHL player births by month, relative to the general population.") +
   theme_classic() +
   theme(
     axis.ticks.x = element_blank(),
@@ -128,15 +135,11 @@ plot2
 #   plot
 # )
 
+cowplot <- cowplot::plot_grid(plot, plot2, nrow = 2)
+
 # Save final
 plot_title <- "proportion_comparison"
 ggsave(
   here("2024", last_tues, paste0(last_tues, "_", plot_title, ".png")), 
-  plot
-)
-
-plot_title <- "proportion_diff_comparison"
-ggsave(
-  here("2024", last_tues, paste0(last_tues, "_", plot_title, ".png")), 
-  plot2
+  cowplot
 )
