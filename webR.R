@@ -26,8 +26,7 @@ all_weeks <- all_folders |>
     title = NA_character_,
     pkgs = NA_character_,
     code_fpath = NA_character_,
-    img_fpath = NA_character_,
-    d = NA_real_
+    img_fpath = NA_character_
   )
 
 # Function to help extract plot names from a README
@@ -62,7 +61,13 @@ for (i in 1:nrow(all_weeks)) {
   
   file <- list.files(file.path(row$year, row$week, "/"),
                         pattern = ".R", full.names = TRUE)[1]
-  packages <- attachment::att_from_rscript(file) |>
-    stringr::str_flatten_comma()
+  packages <- attachment::att_from_rscript(file)
   package_list <- append(package_list, list(packages))
 }
+
+# Create a new column for each unique package
+unique_packages <- unique(unlist(package_list))
+all_weeks[unique_packages] <- 0
+all_weeks
+
+#TODO: Modify column values so that if a week uses a package, the column value will be 1
