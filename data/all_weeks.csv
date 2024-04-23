@@ -1,0 +1,14 @@
+year,week,title,pkgs,code_fpath,img_fpath,cowplot,dplyr,forcats,ggbeeswarm,ggmap,ggplot2,ggrepel,here,janitor,lubridate,mapproj,maps,readr,scales,sf,stringr,tidyr,tidytuesdayR,tidyverse,viridis
+2021,2021-03-23,United Nations Votes,"tidyverse, here, readr",2021/2021-03-23/2021-03-23.R,2021/2021-03-23/2021-03-23_unvotes.png,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,1,0
+2021,2021-10-05,US Nurse Salaries,"tidyverse, tidytuesdayR, here, sf, viridis, janitor",2021/2021-10-05/2021-10-05.R,2021/2021-10-05/2021-10-05_median_salary.png,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,1,1,1
+2023,2023-02-07,Monthly Trading Volume,"tidyverse, tidytuesdayR, here, lubridate, scales, ggrepel",2023/2023-02-07/2023-02-07.R,2023/2023-02-07/2023-02-07_monthly_vol.png,0,0,0,0,0,0,1,1,0,1,0,0,0,1,0,0,0,1,1,0
+2023,2023-03-28,Timezones,"dplyr, ggplot2, tidyr, tidytuesdayR, here, lubridate, scales, ggrepel",2023/2023-03-28/2023-03-28.R,NA,0,1,0,0,0,1,1,1,0,1,0,0,0,1,0,0,1,1,0,0
+2023,2023-07-25,Scurvy Symptoms,"dplyr, ggplot2, tidyr, tidytuesdayR, here, stringr, readr",2023/2023-07-25/2023-07-25.R,2023/2023-07-25/2023-07-25_scurvy_symptoms.png,0,1,0,0,0,1,0,1,0,0,0,0,1,0,0,1,1,1,0,0
+2024,2024-01-09,NHL birth month proportion comparison,"dplyr, ggplot2, tidyr, tidytuesdayR, here, forcats, cowplot, scales",2024/2024-01-09/2024-01-09.R,2024/2024-01-09/2024-01-09_proportion_comparison.png,1,1,1,0,0,1,0,1,0,0,0,0,0,1,0,0,1,1,0,0
+2024,2024-01-23,Education attainment in English towns,"dplyr, ggplot2, tidyr, tidytuesdayR, here, forcats, ggbeeswarm",2024/2024-01-23/2024-01-23.R,2024/2024-01-23/2024-01-23_edu_attainment_violin.png,0,1,1,1,0,1,0,1,0,0,0,0,0,0,0,0,1,1,0,0
+2024,2024-03-05,Trash Wheel,"tidytuesdayR, dplyr, tidyr, ggplot2, here",2024/2024-03-05/2024-03-05.R,NA,0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,1,1,0,0
+2024,2024-03-12,Directory sponsors,"tidytuesdayR, dplyr, tidyr, ggplot2, here",2024/2024-03-12/2024-03-12.R,2024/2024-03-12/2024-03-12_num_sponsors.png,0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,1,1,0,0
+2024,2024-03-26,NCAA Men's Basketball Finals Picks,"dplyr, ggplot2, tidyr, tidytuesdayR, here, janitor, scales",2024/2024-03-26/2024-03-26.R,2024/2024-03-26/2024-03-26_top_10_finals_picks.png,0,1,0,0,0,1,0,1,1,0,0,0,0,1,0,0,1,1,0,0
+2024,2024-04-02,Plate 37,"dplyr, ggplot2, tidyr, tidytuesdayR, here, janitor, stringr",2024/2024-04-02/2024-04-02.R,2024/2024-04-02/2024-04-02_plate_37.png,0,1,0,0,0,1,0,1,1,0,0,0,0,0,0,1,1,1,0,0
+2024,2024-04-09,2024 Solar Eclipse,"dplyr, ggplot2, ggmap, maps, mapproj, tidyr, tidytuesdayR, here, janitor, stringr",2024/2024-04-09/2024-04-09.R,NA,0,1,0,0,1,1,0,1,1,0,1,1,0,0,0,1,1,1,0,0
+2024,2024-04-16,Shiny,"dplyr, ggplot2, tidytuesdayR, janitor, here",2024/2024-04-16/2024-04-16.R,NA,0,1,0,0,0,1,0,1,1,0,0,0,0,0,0,0,0,1,0,0

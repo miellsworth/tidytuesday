@@ -3,6 +3,7 @@ library(tidyr)
 library(stringr)
 library(tidytuesdayR)
 library(attachment)
+library(readr)
 
 # get list of all #tidytuesday folders
 all_folders <- tibble::tibble(
@@ -36,10 +37,7 @@ str_extract_between <- function(x, start, end) {
 }
 
 # List of plot titles, plot paths from each Tidy Tuesday week
-titles <- c()
-plot_paths <- c()
-package_list <- c()
-for (i in 1:nrow(all_weeks)) {
+for (i in seq_len(nrow(all_weeks))) {
   row <- all_weeks[i, ]
   readme_path <- list.files(file.path(row$year, row$week),
                           pattern = "\\.md|\\.MD", full.names = TRUE)
@@ -49,25 +47,41 @@ for (i in 1:nrow(all_weeks)) {
   readme_txt <- readLines(readme_path, warn = FALSE)[1]
   readme_title <- str_extract_between(readme_txt, start = ">", end = "<") |>
     stringr::str_trim("both")
-  titles <- append(titles, readme_title)
+  
+  all_weeks[i, "title"] <- readme_title
   
   #TODO: How do I handle multiple plot paths per week
   plot_path <- list.files(file.path(row$year, row$week),
                           pattern = ".png|.PNG|.jpg|.JPG|.jpeg|.JPEG", full.names = TRUE)
   if (length(plot_path) == 0){
-    plot_paths <- append(plot_paths, NA)
+    all_weeks[i, "img_fpath"] <- NA
+  } else{
+    all_weeks[i, "img_fpath"] <- plot_path    
   }
-  plot_paths <- append(plot_paths, plot_path)
-  
-  file <- list.files(file.path(row$year, row$week, "/"),
+
+  file <- list.files(file.path(row$year, row$week),
                         pattern = ".R", full.names = TRUE)[1]
+  all_weeks[i, "code_fpath"] <- file
+  
   packages <- attachment::att_from_rscript(file)
-  package_list <- append(package_list, list(packages))
+  all_weeks[i, "pkgs"] <- packages|>
+    stringr::str_flatten_comma()
 }
 
 # Create a new column for each unique package
-unique_packages <- unique(unlist(package_list))
-all_weeks[unique_packages] <- 0
+binary_pkgs <- all_weeks |>
+  select(week, pkgs) |>
+  separate_longer_delim(pkgs, delim = ", ") |>
+  mutate(value = 1) |>
+  complete(week, pkgs) |>
+  mutate(value = replace_na(value, 0)) |>
+  unique() |>
+  pivot_wider(names_from = pkgs, values_from = value)
+
+# Join package columns with previous dataframe
+all_weeks <- all_weeks |>
+  left_join(binary_pkgs, by = "week") |>
+  distinct()
 all_weeks
 
-#TODO: Modify column values so that if a week uses a package, the column value will be 1
+readr::write_csv(all_weeks, "data/all_weeks.csv")
