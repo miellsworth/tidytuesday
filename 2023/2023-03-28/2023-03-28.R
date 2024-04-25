@@ -44,3 +44,10 @@ test_df <- expand_grid(years, zone = unique(transitions$zone)) %>%
   left_join(transitions, by = c("year", "zone")) %>%
   group_by(zone) %>%
   fill(offset, dst, abbreviation)
+test_df %>%
+  filter(zone == "Canada/Mountain") %>%
+  drop_na() %>%
+  mutate(duration = end - begin) %>%
+  filter(duration > 365)
+  ggplot(aes(x = duration)) +
+  geom_histogram()
