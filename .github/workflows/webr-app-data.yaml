@@ -1,0 +1,38 @@
+name: Update webR app data
+
+on:
+  push:
+    branches: [ main ]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+          
+      - name: Install R libraries
+        run: |
+          install.packages(c("attachment", "dplyr", "tidyr", "stringr", "readr")
+        shell: Rscript {0}
+        
+      - name: Update Tidy Tuesday data
+        run: |
+          source("data/tt_data.R")
+        shell: Rscript {0}
+        
+        # Commits the files created by the tt_data.R script
+      - name: Commit files
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add --all
+          git commit -am "add data" || exit 0
+          git push 

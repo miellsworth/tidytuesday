@@ -1,7 +1,6 @@
 library(dplyr)
 library(tidyr)
 library(stringr)
-library(tidytuesdayR)
 library(attachment)
 library(readr)
 
