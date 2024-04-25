@@ -20,7 +20,7 @@ jobs:
           
       - name: Install R libraries
         run: |
-          install.packages(c("attachment", "dplyr", "tidyr", "stringr", "readr")
+          install.packages(c("attachment", "dplyr", "tidyr", "stringr", "readr"))
         shell: Rscript {0}
         
       - name: Update Tidy Tuesday data
