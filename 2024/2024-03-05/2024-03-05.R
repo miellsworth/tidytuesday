@@ -76,28 +76,11 @@ plot <- df_long %>%
   )
 plot
 
-plot <- df_long %>%
-  filter(trash_type %in% c("sports_balls", "glass_bottles")) %>%
-  ggplot(aes(x = date, y = cumulative_trash, color = trash_type)) +
-  geom_line() +
-  theme_classic() +
-  labs(
-    title = "The most commonly collected trash by Mr. Trash Wheel",
-    x = "",
-    y = "Cumulative Trash Count"
-  ) +
-  scale_color_discrete(name = "Type of Trash") +
-  scale_y_continuous(labels = scales::comma) +
-  theme(
-    legend.position = "bottom"
-  )
-plot
-
 # Save draft
 # ggsave(here("plots", "drafts", paste0("plt_", last_tues), paste0(format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".png")))
 
 # Save final
-plot_title <- ""
+plot_title <- "cumulative_trash"
 ggsave(
   here("2024", last_tues, paste0(last_tues, "_", plot_title, ".png")), 
   plot
