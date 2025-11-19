@@ -5,6 +5,7 @@ library(tidyr)
 library(tidytuesdayR)
 library(here)
 library(stringr)
+library(grid)
 
 # Find the most recent Tuesday
 tidytuesdayR::last_tuesday()
@@ -41,14 +42,17 @@ scurvy_trans <- scurvy_tidy %>%
 plot <- scurvy_trans %>%
   ggplot(aes(x = symptom_severity, y = mean_severity)) +
   geom_col() +
-  facet_wrap(facets = vars(treatment), nrow = 2, ncol = 3)
-plot
+  facet_wrap(facets = vars(treatment), nrow = 2, ncol = 3) +
+  theme(
+    panel.border = element_blank(),
+    plot.background = element_blank()
+  )
 
 # Save draft
-# ggsave(
-#   here("plots", "drafts", "plt_2023-07-25", paste0(format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".png")),
-#   plot
-#   )
+ggsave(
+  here("2023", "2023-07-25", paste0(format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".png")),
+  width = 8, height = 6, dpi = 300
+  )
 
 # Save final
 plot_title <- "scurvy_symptoms"
