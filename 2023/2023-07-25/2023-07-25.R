@@ -45,18 +45,20 @@ plot <- scurvy_trans %>%
   facet_wrap(facets = vars(treatment), nrow = 2, ncol = 3) +
   theme(
     panel.border = element_blank(),
-    plot.background = element_blank()
+    plot.background = element_rect(color = "black", fill = "#fbfae4", size = 0.25)
   )
+plot
 
 # Save draft
-ggsave(
-  here("2023", "2023-07-25", paste0(format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".png")),
-  width = 8, height = 6, dpi = 300
-  )
+# ggsave(
+#   here("2023", "2023-07-25", paste0(format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".png")),
+#   width = 8, height = 6, dpi = 300
+#   )
 
 # Save final
 plot_title <- "scurvy_symptoms"
 ggsave(
-  here("2023", "2023-07-25", paste0(last_tues, "_", plot_title, ".png")), 
+  here("2023", "2023-07-25", paste0(last_tues, "_", plot_title, ".png")),
+  width = 8, height = 6, dpi = 300,
   plot
   )
