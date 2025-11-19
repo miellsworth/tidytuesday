@@ -45,7 +45,7 @@ plot <- scurvy_trans %>%
   facet_wrap(facets = vars(treatment), nrow = 2, ncol = 3) +
   theme(
     panel.border = element_blank(),
-    plot.background = element_rect(color = "black", fill = "#fbfae4", size = 0.25)
+    plot.background = element_rect(fill = "#fbfae4")
   )
 plot
 
