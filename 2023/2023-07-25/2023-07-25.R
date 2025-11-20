@@ -38,14 +38,37 @@ scurvy_trans <- scurvy_tidy %>%
   group_by(treatment, symptom_severity) %>%
   summarise(mean_severity = mean(value))
 
+# Clean value names
+scurvy_clean <- scurvy_trans %>%
+  mutate(symptom_severity = case_when(
+    symptom_severity == "gum_rot" ~ "Gum Rot",
+    symptom_severity == "skin_sores" ~ "Skin Sores",
+    symptom_severity == "knee_weakness" ~ "Knee Weakness",
+    symptom_severity == "lassitude" ~ "Lassitude",
+    TRUE ~ symptom_severity
+    )
+  ) %>%
+  mutate(treatment = case_when(
+    treatment == "cider" ~ "Cider",
+    treatment == "citrus" ~ "Citrus",
+    treatment == "dilute_sulfuric_acid" ~ "Dilute Sulfuric Acid",
+    treatment == "purgative_mixture" ~ "Purgative Mixture",
+    treatment == "sea_water" ~ "Sea Water",
+    treatment == "vinegar" ~ "Vinegar",
+    TRUE ~ treatment
+  )
+  )
+
 # Plot data
-plot <- scurvy_trans %>%
-  ggplot(aes(x = symptom_severity, y = mean_severity)) +
+plot <- scurvy_clean %>%
+  ggplot(aes(x = str_wrap(symptom_severity, width = 8), y = mean_severity)) +
   geom_col() +
   facet_wrap(facets = vars(treatment), nrow = 2, ncol = 3) +
+  xlab("Symptom Severity") +
+  ylab("Mean Severity") +
   theme(
-    panel.border = element_blank(),
-    plot.background = element_rect(fill = "#fbfae4")
+    panel.background = element_rect(fill = "#fbfae4"),
+    plot.background = element_rect(fill = "#fbfae4"),
   )
 plot
 
