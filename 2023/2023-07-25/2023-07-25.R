@@ -5,15 +5,14 @@ library(tidyr)
 library(tidytuesdayR)
 library(here)
 library(stringr)
-library(grid)
 
 # Find the most recent Tuesday
 tidytuesdayR::last_tuesday()
 last_tues <- "2023-07-25"
 
 # Creating directory for draft plots
-plt_dir <- paste0("plt_", last_tues)
-dir.create(here("plots", "drafts", plt_dir))
+# plt_dir <- paste0("plt_", last_tues)
+# dir.create(here("plots", "drafts", plt_dir))
 
 # Get the Data
 # tuesdata <- tidytuesdayR::tt_load('2023-07-25')
@@ -66,6 +65,10 @@ plot <- scurvy_clean %>%
   facet_wrap(facets = vars(treatment), nrow = 2, ncol = 3) +
   xlab("Symptom Severity") +
   ylab("Mean Severity") +
+  labs(
+    title = "In a 1757 study, citrus reduced scurvy syptom severity better than all other treatments.",
+    caption = "Data: medicaldata R Package"
+    ) +
   theme(
     panel.background = element_rect(fill = "#fbfae4"),
     plot.background = element_rect(fill = "#fbfae4"),
