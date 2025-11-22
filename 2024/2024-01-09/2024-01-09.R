@@ -99,10 +99,8 @@ plot <- monthly_birth_diffs %>%
     axis.ticks.y = element_blank(),
     text = element_text(size = 13),
     legend.position = "none",
-    panel.background = element_rect(fill = "transparent", colour = NA),
-    plot.background = element_rect(fill = "transparent", colour = NA),
-    legend.background = element_rect(fill = "transparent", colour = NA),
-    legend.box.background = element_rect(fill = "transparent", colour = NA)
+    panel.background = element_rect(fill = "#fbfae4"),
+    plot.background = element_rect(fill = "#fbfae4"),
   )
 
 plot
@@ -130,10 +128,9 @@ plot2 <- monthly_birth_diffs %>%
     axis.ticks.y = element_blank(),
     text = element_text(size = 13),
     legend.position = "bottom",
-    panel.background = element_rect(fill = "transparent", colour = NA),
-    plot.background = element_rect(fill = "transparent", colour = NA),
-    legend.background = element_rect(fill = "transparent", colour = NA),
-    legend.box.background = element_rect(fill = "transparent", colour = NA)
+    panel.background = element_rect(fill = "#fbfae4"),
+    plot.background = element_rect(fill = "#fbfae4"),
+    legend.background = element_rect(fill = "#fbfae4")
   )
 
 plot2
