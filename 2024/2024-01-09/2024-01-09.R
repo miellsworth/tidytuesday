@@ -6,6 +6,7 @@ library(tidytuesdayR)
 library(here)
 library(forcats)
 library(cowplot)
+library(stringr)
 
 # Find the most recent Tuesday
 tidytuesdayR::last_tuesday()
@@ -90,14 +91,16 @@ plot <- monthly_birth_diffs %>%
   ylab("Births per month") +
   xlab(element_blank()) +
   labs(
-    title = "NHL players are typically born in the first 5 months of the year"
+    title = str_wrap("Relative to the general population, NHL players are born more often in the first 5 months of the year", width = 80)
   ) +
   theme_classic() +
   theme(
     axis.ticks.x = element_blank(),
     axis.ticks.y = element_blank(),
     text = element_text(size = 13),
-    legend.position = "none"
+    legend.position = "none",
+    panel.background = element_rect(fill = "transparent"),
+    plot.background = element_rect(fill = "transparent"),
   )
 
 plot
@@ -124,7 +127,9 @@ plot2 <- monthly_birth_diffs %>%
     axis.ticks.x = element_blank(),
     axis.ticks.y = element_blank(),
     text = element_text(size = 13),
-    legend.position = "bottom"
+    legend.position = "bottom",
+    panel.background = element_rect(fill = "transparent"),
+    plot.background = element_rect(fill = "transparent"),
   )
 
 plot2
@@ -136,6 +141,7 @@ plot2
 # )
 
 cowplot <- cowplot::plot_grid(plot, plot2, nrow = 2)
+cowplot
 
 # Save final
 plot_title <- "proportion_comparison"
