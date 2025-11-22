@@ -115,7 +115,7 @@ plot2 <- monthly_birth_diffs %>%
     expand = c(0, 0)
   ) +
   labs(
-    caption = "Chart: @mb_ellsworth | Data: Statistics Canada, NHL"
+    caption = "Data: Statistics Canada, NHL"
   ) +
   ylab("NHL % - Gen Pop %") +
   xlab(element_blank()) +
