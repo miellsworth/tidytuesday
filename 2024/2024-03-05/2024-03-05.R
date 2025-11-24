@@ -65,14 +65,18 @@ plot <- df_long %>%
   geom_line(size = 2) +
   theme_classic() +
   labs(
-    title = "The most commonly collected trash by Mr. Trash Wheel",
+    title = "Mr. Trash Wheel collects a lot of plastic!",
     x = "",
-    y = "Cumulative Trash Count"
+    y = "Cumulative Trash Count",
+    caption = "Data: Mr. Trash Wheel Baltimore Healthy Harbor initiative"
   ) +
-  scale_color_brewer(name = "Type of Trash", palette = "BrBG") +
+  scale_color_brewer(name = "Type of Trash", palette = "Set1") +
   scale_y_continuous(labels = scales::comma) +
   theme(
-    legend.position = "bottom"
+    legend.position = "bottom",
+    panel.background = element_rect(fill = "#fbfae4"),
+    plot.background = element_rect(fill = "#fbfae4"),
+    legend.background = element_rect(fill = "#fbfae4"),
   )
 plot
 
