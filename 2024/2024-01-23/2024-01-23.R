@@ -6,6 +6,7 @@ library(tidytuesdayR)
 library(here)
 library(forcats)
 library(ggbeeswarm)
+library(stringr)
 
 # Find the most recent Tuesday
 tidytuesdayR::last_tuesday()
@@ -40,20 +41,24 @@ plot <- df %>%
     alpha = 0.25,
     fill = "black"
   ) +
-  stat_summary(fun.y = mean, geom = "crossbar", width = 0.8, size = 0.4) +
+  stat_summary(fun = mean, geom = "crossbar", width = 0.8, linewidth = 0.4) +
   theme_classic() + 
   labs(
-    title = "Educational attainment of young people in English towns",
+    title = str_wrap("Educational attainment of young people is slightly higher in small English towns", width = 70),
     x = "",
-    y = "Educational attainment index score"
+    y = "Educational attainment index score",
+    caption = "Data: The UK Office for National Statistics"
   ) +
   theme(
     legend.position = "none",
     axis.ticks.x = element_blank(),
     axis.ticks.y = element_blank(),
-    axis.line.y = element_blank()
+    axis.line.y = element_blank(),
+    panel.background = element_rect(fill = "#fbfae4"),
+    plot.background = element_rect(fill = "#fbfae4"),
   ) +
   coord_flip()
+plot
 
 # Save draft
 # ggsave(
