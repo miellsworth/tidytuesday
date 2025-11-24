@@ -15,7 +15,7 @@ readme(tt_output)
 
 # Creating directory for draft plots
 plt_dir <- paste0("plt_", last_tues)
-dir.create(here("plots", "drafts", plt_dir))
+# dir.create(here("plots", "drafts", plt_dir))
 
 # Get the Data
 tuesdata <- tidytuesdayR::tt_load(last_tues)
@@ -58,7 +58,7 @@ plot <- df_buckets_summary %>%
   labs(
     title = "Breakdown of directory sponsors by number of projects served",
     subtitle = "Updated March 2024",
-    caption = "Chart: @ellsworthh@data-folks.masto.host | Data: fiscalsponsordirectory.org",
+    caption = "Chart: Michael Ellsworth | Data: fiscalsponsordirectory.org",
     x = "",
     y = ""
   ) +
@@ -69,7 +69,10 @@ plot <- df_buckets_summary %>%
     plot.title.position = "plot",
     plot.title = element_text(hjust = 0.5),
     plot.subtitle = element_text(hjust = 0.5),
-    text = element_text(family = "Tahoma")
+    text = element_text(family = "Tahoma"),
+    panel.background = element_rect(fill = "#fbfae4"),
+    plot.background = element_rect(fill = "#fbfae4"),
+    legend.background = element_rect(fill = "#fbfae4"),
   )
 plot
 
