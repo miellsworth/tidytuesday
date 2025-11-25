@@ -14,9 +14,12 @@ last_tues <- "" # Date in YYYY-MM-DD format
 tt_output <- tt_load_gh(last_tues)
 readme(tt_output)
 
-# Creating directory for draft plots
-drafts <- here(year(last_tues), last_tues, "drafts")
-dir.create(drafts)
+# Create directories
+## Main
+dir.create(here(year(last_tues), last_tues))
+
+## Drafts
+dir.create(here(year(last_tues), last_tues, "drafts"))
 
 # Get the Data
 tuesdata <- tidytuesdayR::tt_load(last_tues)
