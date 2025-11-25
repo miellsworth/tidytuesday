@@ -5,10 +5,15 @@ library(tidyr)
 library(tidytuesdayR)
 library(here)
 library(janitor)
+library(stringr)
 
 # Find the most recent Tuesday
 tidytuesdayR::last_tuesday()
 last_tues <- "2024-03-26"
+
+# View README
+tt_output <- tt_load_gh(last_tues)
+readme(tt_output)
 
 # Creating directory for draft plots
 plt_dir <- paste0("plt_", last_tues)
@@ -45,14 +50,18 @@ plot <- picks %>%
     expand = c(0, 0)
   ) +
   labs(
-    title = "Connecticut is by far the most picked team to make the NCAA tournament finals",
-    y = "Proportion of picks that have a team making the finals (%)",
-    x = ""
+    title = str_wrap("Connecticut is by far the most picked team to make the NCAA Men's March Madness tournament finals", width = 75),
+    y = "Proportion of finals picks (%)",
+    x = "",
+    caption = "Chart: Michael Ellsworth | Data: Nishaan Amin's NCAA Men's March Madness Kaggle dataset",
   ) +
   theme_classic() +
   theme(
     axis.line.y = element_blank(),
-    axis.ticks.y = element_blank()
+    axis.ticks.y = element_blank(),
+    panel.background = element_rect(fill = "#fbfae4"),
+    plot.background = element_rect(fill = "#fbfae4"),
+    legend.background = element_rect(fill = "#fbfae4"),
   ) +
   coord_flip()
 plot
