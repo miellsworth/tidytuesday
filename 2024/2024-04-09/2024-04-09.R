@@ -46,11 +46,11 @@ total_2024_summary %>%
   ggplot(aes(x = avg_totality, y = reorder(state, avg_totality))) +
   geom_col()
 
-states %>%
+plot <- states %>%
   ggplot(aes(x = long, y = lat)) +
   geom_polygon(aes(group = group)) +
   geom_point(
-    aes(x = lon, y = lat, color = as.numeric(totality_duration)), 
+    aes(x = lon, y = lat, color = totality_duration), 
     data = total_2024,
     alpha = 0.5
   ) +
@@ -60,4 +60,19 @@ states %>%
     size = 3
   ) +
   coord_map("albers",  lat0 = 45.5, lat1 = 29.5) +
-  theme_void()
+  scale_color_continuous(name = str_wrap("Totality Duration (seconds)", width = 20)) +
+  theme_void() +
+  theme(
+    panel.background = element_rect(fill = "#fbfae4"),
+    plot.background = element_rect(fill = "#fbfae4"),
+    legend.background = element_rect(fill = "#fbfae4"),
+    strip.background = element_rect(fill = "#fbfae4")
+  )
+plot
+
+# Save final
+plot_title <- "totality_duration"
+ggsave(
+  here("2024", last_tues, paste0(last_tues, "_", plot_title, ".png")), 
+  plot
+)
