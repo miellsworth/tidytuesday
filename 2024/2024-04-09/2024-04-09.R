@@ -63,10 +63,10 @@ plot <- states %>%
   scale_color_continuous(name = str_wrap("Totality Duration (seconds)", width = 20)) +
   theme_void() +
   theme(
-    panel.background = element_rect(fill = "#fbfae4"),
-    plot.background = element_rect(fill = "#fbfae4"),
-    legend.background = element_rect(fill = "#fbfae4"),
-    strip.background = element_rect(fill = "#fbfae4")
+    panel.background = element_rect(fill = "#fbfae4", color = NA),
+    plot.background = element_rect(fill = "#fbfae4", color = NA),
+    legend.background = element_rect(fill = "#fbfae4", color = NA),
+    legend.box.margin = margin(0, 10, 0, 0)
   )
 plot
 
