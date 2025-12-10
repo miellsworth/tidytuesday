@@ -24,12 +24,40 @@ coffee_survey <- readr::read_csv('https://raw.githubusercontent.com/rfordatascie
 glimpse(coffee_survey)
 
 # Tidy data
-
+coffee_survey_clean <- coffee_survey |>
+  mutate(cups = case_when(
+    is.na(cups) ~ "0",
+    cups == "Less than 1" ~ "<1",
+    cups == "1" ~ "1",
+    cups == "2" ~ "2",
+    cups == "3" ~ "3",
+    cups == "4" ~ "4",
+    cups == "More than 4" ~ ">4"
+  )) |>
+  mutate(cups = factor(cups, levels = c("0", "<1", "1", "2", "3", "4", ">4")))
 
 # Plot data
-plot <- coffee_survey %>%
+plot <- coffee_survey_clean %>%
   ggplot(aes(x = cups)) +
-  geom_bar()
+  geom_bar() +
+  scale_y_continuous(
+    expand = c(0, 0)
+  ) +
+  labs(
+    title = str_wrap("Viewers of the Great American Coffee Taste Test typically drink 2 cups of coffee per day", width = 75),
+    y = "Number of survey responses",
+    x = "",
+    caption = "Chart: Michael Ellsworth | Data: Robert McKeon Aloe's The Great American Coffee Taste Test dataset",
+  ) +
+  theme_classic() +
+  theme(
+    axis.line.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    panel.background = element_rect(fill = "#fbfae4"),
+    plot.background = element_rect(fill = "#fbfae4"),
+    legend.background = element_rect(fill = "#fbfae4"),
+  ) +
+  coord_flip()
 plot
 
 # Save final
