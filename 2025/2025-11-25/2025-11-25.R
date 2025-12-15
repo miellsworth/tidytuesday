@@ -5,6 +5,7 @@ library(dplyr)
 library(tidyr)
 library(ggplot2)
 library(here)
+library(stringr)
 
 # Find the most recent Tuesday
 tidytuesdayR::last_tuesday()
@@ -28,16 +29,50 @@ tuesdata <- tidytuesdayR::tt_load(last_tues)
 spi_indicators <- tuesdata$spi_indicators
 
 # Plot data
-spi_indicators |>
+plot <- spi_indicators |>
   filter(country == "Canada") |>
-  ggplot(aes(year, overall_score)) +
-  geom_line()
+  rename(
+    overall = overall_score,
+    use = data_use_score,
+    services = data_services_score,
+    products = data_products_score,
+    sources = data_sources_score,
+    infrastructure = data_infrastructure_score
+  ) |>
+  pivot_longer(
+    cols = c(
+      overall,
+      use, 
+      services, 
+      products, 
+      sources, 
+      infrastructure
+      ),
+    names_to = "score_type",
+    values_to = "score"
+  ) |>
+  ggplot(aes(year, score, col = score_type)) +
+  geom_line() +
+  labs(
+    title = str_wrap("Canadian SPI indicators"),
+    x = "",
+    caption = "Chart: Michael Ellsworth | Data: Nicola Rennie's World Bank Statistical Performances Indicators",
+  ) +
+  theme_classic() +
+  theme(
+    panel.background = element_rect(fill = "#fbfae4", color = NA),
+    plot.background = element_rect(fill = "#fbfae4", color = NA),
+    legend.background = element_rect(fill = "#fbfae4", color = NA),
+    legend.box.margin = margin(0, 10, 0, 0),
+    legend.position = "right"
+  )
+plot
 
 # Save draft plots
 ggsave(here(drafts, paste0(format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".png")))
 
 # Save final
-plot_title <- "" # Include informative title
+plot_title <- "spi_indicators_canada" # Include informative title
 ggsave(
   here(year(last_tues), last_tues, paste0(last_tues, "_", plot_title, ".png")), 
   plot
