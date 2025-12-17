@@ -28,7 +28,12 @@ tuesdata <- tidytuesdayR::tt_load(last_tues)
 sechselaeuten <- tuesdata$sechselaeuten
 
 # Plot data
-
+glimpse(sechselaeuten)
+sechselaeuten |>
+  filter(year != 1923) |>
+  ggplot(aes(x = year, y = duration)) +
+  geom_point() + 
+  geom_smooth(method = "lm")
 
 # Save draft plots
 ggsave(here(drafts, paste0(format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".png")))
