@@ -107,7 +107,8 @@ plot2 <- prizes_categorized |>
     legend.box.margin = margin(0, 10, 0, 0),
     axis.title.y = element_blank()
   )
-plot1 / plot2
+plot <- plot1 / plot2
+plot
 
 # Save draft plots
 ggsave(here(drafts, paste0(format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".png")))
