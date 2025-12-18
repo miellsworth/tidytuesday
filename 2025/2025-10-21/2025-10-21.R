@@ -97,7 +97,7 @@ plot2 <- top_10_tmax |>
 plot2
 
 plot3 <- top_10_tmin |>
-  ggplot(aes(x = fct_reorder(station, avg_tmin), y = avg_tmin)) +
+  ggplot(aes(x = fct_reorder(station, desc(avg_tmin)), y = avg_tmin)) +
   geom_col(width = 0.05) +
   geom_point(size = 12) +
   geom_text(aes(label = round(avg_tmin, 1)), color = "white") +
