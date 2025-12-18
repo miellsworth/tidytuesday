@@ -49,7 +49,7 @@ top_10_tmin <- station |>
   mutate(date = ym(paste(year, month)), station = str_to_title(station)) |>
   group_by(station) |>
   summarise(avg_tmin = mean(tmin, na.rm = TRUE)) |>
-  arrange(desc(avg_tmin)) |>
+  arrange(avg_tmin) |>
   head(10)
 
 # Plot data
@@ -58,10 +58,11 @@ plot1 <- top_10_rain |>
   geom_col(width = 0.05) +
   geom_point(size = 12) +
   geom_text(aes(label = round(avg_rain, 0)), color = "white") +
-  scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.2))) +
   coord_flip() +
   labs(
-    subtitle = str_wrap("Top 10 rainfall stations"),
+    title = str_wrap("UK Weather Stations by Average Rainfall, Max Temp, and Min Temp"),
+    subtitle = str_wrap("Rainiest stations"),
     x = "Weather stations",
     y = "Average rain (mm)"
   ) +
@@ -74,32 +75,57 @@ plot1 <- top_10_rain |>
   )
 plot1
 
-plot1 <- top_10_rain |>
-  ggplot(aes(x = fct_reorder(station, avg_rain), y = avg_rain)) +
+plot2 <- top_10_tmax |>
+  ggplot(aes(x = fct_reorder(station, avg_tmax), y = avg_tmax)) +
   geom_col(width = 0.05) +
   geom_point(size = 12) +
-  geom_text(aes(label = round(avg_rain, 0)), color = "white") +
-  scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
+  geom_text(aes(label = round(avg_tmax, 1)), color = "white") +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.2))) +
   coord_flip() +
   labs(
-    subtitle = str_wrap("Top 10 rainfall stations"),
-    x = "Weather stations",
-    y = "Average rain (mm)"
+    subtitle = str_wrap("Warmest stations"),
+    y = "Max Temp (c)"
   ) +
   theme_classic() +
   theme(
     panel.background = element_rect(fill = "#fbfae4", color = NA),
     plot.background = element_rect(fill = "#fbfae4", color = NA),
     legend.background = element_rect(fill = "#fbfae4", color = NA),
+    axis.title.y = element_blank(),
     axis.ticks.y = element_blank()
   )
-plot1
+plot2
+
+plot3 <- top_10_tmin |>
+  ggplot(aes(x = fct_reorder(station, avg_tmin), y = avg_tmin)) +
+  geom_col(width = 0.05) +
+  geom_point(size = 12) +
+  geom_text(aes(label = round(avg_tmin, 1)), color = "white") +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.2))) +
+  coord_flip() +
+  labs(
+    subtitle = str_wrap("Coldest stations"),
+    y = "Min Temp (c)",
+    caption = "Chart: Michael Ellsworth | Data: UK Met Office",
+  ) +
+  theme_classic() +
+  theme(
+    panel.background = element_rect(fill = "#fbfae4", color = NA),
+    plot.background = element_rect(fill = "#fbfae4", color = NA),
+    legend.background = element_rect(fill = "#fbfae4", color = NA),
+    axis.title.y = element_blank(),
+    axis.ticks.y = element_blank()
+  )
+plot3
+
+plot <- plot1 + plot2 + plot3
+plot
 
 # Save draft plots
 ggsave(here(drafts, paste0(format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".png")))
 
 # Save final
-plot_title <- "" # Include informative title
+plot_title <- "uk_weather_stations" # Include informative title
 ggsave(
   here(year(last_tues), last_tues, paste0(last_tues, "_", plot_title, ".png")), 
   plot
