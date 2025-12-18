@@ -95,7 +95,7 @@ plot2 <- prizes_categorized |>
   scale_y_continuous(labels = scales::percent, limits = c(0, 0.75), expand = expansion(mult = c(0, 0)))  +
   coord_flip() +
   labs(
-    subtitle = str_wrap("Non-White"),
+    subtitle = str_wrap("Ethnically Diverse"),
     y = "Percent of shortlist/winners by genre",
     caption = "Chart: Michael Ellsworth | Data: Post45 Data Collective's Selected British Literary Prizes",
   ) +
