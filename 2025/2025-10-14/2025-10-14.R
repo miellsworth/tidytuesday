@@ -26,9 +26,16 @@ tuesdata <- tidytuesdayR::tt_load(last_tues)
 
 # Tidy data
 food_security <- tuesdata$food_security
+food_security$Item |> unique()
 
 # Plot data
-
+food_security |>
+  filter(
+    Item == "Prevalence of severe food insecurity in the total population (percent) (3-year average)",
+    Area %in% c("Asia", "Africa", "Oceania", "South America", "Central America", "Europe", "North America")
+  ) |>
+  ggplot(aes(x = Year_End, y = Value, col = Area)) +
+  geom_line()
 
 # Save draft plots
 ggsave(here(drafts, paste0(format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".png")))
