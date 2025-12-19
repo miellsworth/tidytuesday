@@ -46,14 +46,14 @@ ui <- fluidPage(
       htmltools::br(),
       shiny::htmlOutput("r4ds_link"),
       htmltools::br(),
-      width = 6
+      width = 3
     ),
     
     # Create a main panel for the plot images
     mainPanel(
       shiny::htmlOutput("plot_img"),
       htmltools::br(),
-      width = 6
+      width = 9
     )
   )
 )
