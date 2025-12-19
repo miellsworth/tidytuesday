@@ -55,7 +55,8 @@ plot <- ggplot() +
     title = str_wrap("Over the last 8 years, the proportion of populations experiencing food insecurty has generally increased across all continents."),
     x = "Year",
     y = "Prevalence (%)",
-    color = "Continent"
+    color = "Continent",
+    caption = "Chart: Michael Ellsworth | Data:  The Food and Agriculture Organization of the United Nations (FAO)",
   ) +
   theme_classic() +
   theme(
