@@ -7,7 +7,7 @@ library(glue)
 library(shinythemes)
 
 # Read data directly from GitHub
-all_weeks <- read_csv("https://raw.githubusercontent.com/miellsworth/tidytuesday/main/data/all_weeks.csv")
+all_weeks <- read_csv("https://raw.githubusercontent.com/miellsworth/tidytuesday/refs/heads/main/data/all_weeks.csv")
 
 # Save plot titles to an object for use in a dropdown menu
 all_titles <- all_weeks$title
