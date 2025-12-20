@@ -1,5 +1,6 @@
 # Load packages
 library(shiny)
+library(bslib)
 library(dplyr)
 library(readr)
 library(htmltools)
@@ -17,45 +18,31 @@ all_pkgs <- dplyr::select(all_weeks, -c(year, week, title, pkgs, code_fpath, img
 all_pkgs <- colnames(all_pkgs)
 
 # Create the user interface object ----
-ui <- fluidPage(
-  
-  # Pick a Shiny theme
-  theme = shinytheme("journal"),
+ui <- page_sidebar(
   
   # Create a title panel
-  titlePanel("Michael's Tidy Tuesdays :)"),
+  title = "Michael's Tidy Tuesdays :)",
   
   # Create a sidebar for user input
-  sidebarLayout(
+  sidebar = sidebar(
     
-    sidebarPanel(
-      
       # Markdown text to add in some details about the application
       markdown(
       "[Michael Ellsworth](https://github.com/miellsworth)
       
       Explore my Tidy Tuesday viz!"
       ),
-      htmltools::hr(),
       # Select a plot based on title
       shiny::uiOutput("select_img"),
       # display information
       shiny::textOutput("pkgs_used"),
-      htmltools::br(),
       shiny::htmlOutput("code_link"),
-      htmltools::br(),
-      shiny::htmlOutput("r4ds_link"),
-      htmltools::br(),
-      width = 3
-    ),
-    
+      width = 350
+  ),
     # Create a main panel for the plot images
-    mainPanel(
-      shiny::htmlOutput("plot_img"),
-      htmltools::br(),
-      width = 9
+    card(
+      shiny::htmlOutput("plot_img")
     )
-  )
 )
 
 # Create the server object ----
@@ -70,7 +57,7 @@ server <- function(input, output) {
       inputId = "plot_title",
       label = "Select a plot:",
       choices = all_titles,
-      width = "90%"
+      width = "100%"
     )
   })
   
@@ -104,7 +91,7 @@ server <- function(input, output) {
   
   output$code_link <- shiny::renderText({
     glue::glue(
-      '<b>Code is available at</b>: <a href="{code_path()}"  target="_blank">{code_path()}</a>.'
+      '<b>Code available at: </b> <a href="{code_path()}"  target="_blank">Github</a>'
     )
   })
 }
