@@ -38,7 +38,7 @@ canada_languages <- languages |>
   filter(str_detect(countries, "CA"))
 
 # Plot data
-
+# Inspo https://github.com/gkaramanis/tidytuesday/tree/master/2025/2025-week_52
 
 # Save draft plots
 ggsave(here(drafts, paste0(format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".png")))
