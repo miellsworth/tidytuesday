@@ -5,6 +5,9 @@ library(dplyr)
 library(tidyr)
 library(ggplot2)
 library(here)
+library(stringr)
+library(patchwork)
+library(sf)
 
 # Find the most recent Tuesday
 tidytuesdayR::last_tuesday()
@@ -28,6 +31,11 @@ tuesdata <- tidytuesdayR::tt_load(last_tues)
 endangered_status <- tuesdata$endangered_status
 families <- tuesdata$families
 languages <- tuesdata$languages
+
+canada_languages <- languages |> 
+  left_join(families, join_by(family_id == id)) |>
+  left_join(endangered_status, by = "id") |>
+  filter(str_detect(countries, "CA"))
 
 # Plot data
 
